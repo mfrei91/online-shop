@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Anmelden – KarmaKiosk{% endblock %}
+{% block content %}
+<section class="auth-card card">
+    <h2>🔐 Anmelden</h2>
+    <form method="post">
+        <label for="username">Benutzername</label>
+        <input type="text" id="username" name="username" required autofocus>
+        <label for="password">Passwort</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="btn">Anmelden</button>
+    </form>
+    <p class="auth-hint">Noch kein Konto? <a href="{{ url_for('auth.register') }}>Jetzt registrieren</a></p>
+</section>
+{% endblock %}

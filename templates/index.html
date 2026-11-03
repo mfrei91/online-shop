@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% block title %}KarmaKiosk – Digitale Downloads für deine spirituelle Reise{% endblock %}
+
+{% block content %}
+<section class="hero card">
+    <div class="rating">
+        <span class="stars">★★★★★</span> <strong>4,9</strong> · 328 Bewertungen
+    </div>
+    <nav class="tabs">
+        <a href="{{ url_for('shop.index') }}" class="tab {{ 'active' if not active_category }}">Alle Angebote</a>
+        {% for cat in categories %}
+            <a href="{{ url_for('shop.index', kategorie=cat) }}" class="tab {{ 'active' if active_category == cat }}">{{ cat }}</a>
+        {% endfor %}
+    </nav>
+</section>
+
+{% if popular %}
+    <section class="section">
+        <h2>✨ Beliebte Artikel</h2>
+        <div class="offer-grid">
+            {% for offer in popular %}
+                {{ macros.offer_card(offer) }}
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}
+
+<section class="section">
+    <h2>{{ active_category or 'Alle Angebote' }}</h2>
+    {% if offers %}
+        <div class="offer-grid">
+            {% for offer in offers %}
+                {{ macros.offer_card(offer) }}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty">In dieser Kategorie gibt es noch keine Angebote. 🌱</p>
+    {% endif %}
+</section>
+{% endblock %}

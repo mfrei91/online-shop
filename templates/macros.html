@@ -1,0 +1,14 @@
+{% macro offer_card(offer) %}
+<article class="offer-card">
+    <div class="offer-image offer-image--{{ offer.category }}">{{ offer.emoji }}</div>
+    <div class="offer-body">
+        <span class="offer-category">{{ offer.category }}</span>
+        <h3>{{ offer.title }}</h3>
+        <p>{{ offer.description }}</p>
+        <div class="offer-footer">
+            <span class="price">{{ offer.price_display() }}</span>
+            <a class="btn btn-small" href="#">In den Warenkorb 🧺</a>
+        </div>
+    </div>
+</article>
+{% endmacro %}

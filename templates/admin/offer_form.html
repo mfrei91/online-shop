@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Angebot bearbeiten' if offer else 'Neues Angebot' }} – KarmaKiosk{% endblock %}
+{% block content %}
+<section class="section">
+    <h2>{{ '✏️ „' ~ offer.title ~ '“ bearbeiten' if offer else '＋ Neues Angebot' }}</h2>
+    <div class="card form-card">
+        <form method="post">
+            <label for="title">Titel *</label>
+            <input type="text" id="title" name="title" required
+                   value="{{ offer.title if offer else '' }}">
+
+            <label for="description">Beschreibung</label>
+            <textarea id="description" name="description" rows="4">{{ offer.description if offer else '' }}</textarea>
+
+            <div class="form-row">
+                <div>
+                    <label for="price">Preis (€)</label>
+                    <input type="text" id="price" name="price" placeholder="9,99"
+                           value="{{ '%.2f' % offer.price if offer else '' }}">
+                </div>
+                <div>
+                    <label for="category">Kategorie</label>
+                    <select id="category" name="category">
+                        {% for cat in categories %}
+                            <option value="{{ cat }}" {{ 'selected' if offer and offer.category == cat }}>{{ cat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="emoji">Symbol (Emoji)</label>
+                    <input type="text" id="emoji" name="emoji" maxlength="8"
+                           value="{{ offer.emoji if offer else '🔮' }}">
+                </div>
+            </div>
+
+            <div class="form-checks">
+                <label class="check"><input type="checkbox" name="popular" {{ 'checked' if offer and offer.popular }}> Als „beliebt“ markieren</label>
+                {% if offer %}
+                <label class="check"><input type="checkbox" name="active" {{ 'checked' if offer.active }}> Im Shop sichtbar</label>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">{{ 'Speichern' if offer else 'Angebot hinzufügen' }}</button>
+                <a class="btn btn-outline" href="{{ url_for('admin.offers') }}">Abbrechen</a>
+                {% if offer %}
+                <button type="submit" name="delete" value="1" class="btn btn-danger"
+                        onclick="return confirm('Angebot wirklich entfernen?')">Entfernen</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

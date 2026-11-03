@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KarmaKiosk – Digitale Downloads{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="wood-bg">
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-moon">🌙</span>
+                <div>
+                    <h1>KarmaKiosk</h1>
+                    <p class="tagline">Digitale Downloads für deine spirituelle Reise</p>
+                </div>
+            </div>
+            <nav class="user-nav">
+                {% if current_user.is_authenticated %}
+                    <span class="user-badge">👤 {{ current_user.username }}</span>
+                    {% if current_user.is_admin %}
+                        <a class="btn btn-small" href="{{ url_for('admin.dashboard') }}">⚙️ Admin</a>
+                    {% endif %}
+                    <a class="btn btn-small btn-outline" href="{{ url_for('auth.logout') }}">Abmelden</a>
+                {% else %}
+                    <a class="btn btn-small btn-outline" href="{{ url_for('auth.login') }}">Anmelden</a>
+                    <a class="btn btn-small" href="{{ url_for('auth.register') }}">Registrieren</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <p>🌙 KarmaKiosk · Kartenlegungen • Zauber • Rituale · Bewusstsein beginnt mit einem Klick</p>
+    </footer>
+</div>
+</body>
+</html>

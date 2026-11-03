@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Admin – KarmaKiosk{% endblock %}
+{% block content %}
+<section class="section">
+    <h2>⚙️ Admin-Bereich</h2>
+    <nav class="tabs">
+        <a href="{{ url_for('admin.dashboard') }}" class="tab active">Übersicht</a>
+        <a href="{{ url_for('admin.offers') }}" class="tab">Angebote</a>
+        <a href="{{ url_for('admin.users') }}" class="tab">Benutzer</a>
+    </nav>
+    <div class="stat-grid">
+        <div class="stat card"><span class="stat-value">{{ stats.users }}</span><span class="stat-label">Benutzer</span></div>
+        <div class="stat card"><span class="stat-value">{{ stats.offers }}</span><span class="stat-label">Angebote</span></div>
+        <div class="stat card"><span class="stat-value">{{ stats.active }}</span><span class="stat-label">Aktive Angebote</span></div>
+        <div class="stat card"><span class="stat-value">{{ stats.admins }}</span><span class="stat-label">Admins</span></div>
+    </div>
+    <p><a class="btn" href="{{ url_for('admin.offer_create') }}">＋ Neues Angebot</a></p>
+</section>
+{% endblock %}
